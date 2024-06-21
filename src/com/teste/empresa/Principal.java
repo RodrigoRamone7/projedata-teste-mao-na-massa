@@ -1,131 +1,21 @@
 package com.teste.empresa;
 
+import javax.swing.*;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Principal {
     private List<Funcionario> funcionarios;
-    private Map funcionariosAgrupados;
+    private final Locale localBR;
+    private final NumberFormat moeda;
 
-    private Principal(){
-        this.funcionarios = new ArrayList<>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Funcionario> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Funcionario funcionario) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Funcionario> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends Funcionario> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public Funcionario get(int index) {
-                return null;
-            }
-
-            @Override
-            public Funcionario set(int index, Funcionario element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, Funcionario element) {
-
-            }
-
-            @Override
-            public Funcionario remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<Funcionario> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<Funcionario> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<Funcionario> subList(int fromIndex, int toIndex) {
-                return List.of();
-            }
-        };
-        this.funcionariosAgrupados = new HashMap<>();
+    public Principal(){
+        funcionarios = new ArrayList<>();
+        localBR = new Locale("pt", "BR");
+        moeda = NumberFormat.getCurrencyInstance(localBR);
     }
 
     public void adicionarFuncionario(String nome, LocalDate dataNascimento, BigDecimal salario, String funcao){
@@ -140,15 +30,42 @@ public class Principal {
         }
     }
     public void listaDeFuncionarios(){
-        for (Funcionario funcionario : funcionarios){
-            System.out.println();
-        }
-    }
-    public void adicionarAumentoParaTodos(float porcentagem){
+        System.out.println(" ");
+        System.out.println("Lista de Funcionários");
+        System.out.format("+-----------------+--------------------+---------------+-----------------+%n");
+        System.out.format("| Nome            | Data de Nascimento | Salário       | Função          |%n");
+        System.out.format("+-----------------+--------------------+---------------+-----------------+%n");
 
+        String leftAlignFormat = "| %-15s | %-18s | %-13s | %-15s | %n";
+
+        for (Funcionario funcionario : funcionarios) {
+            DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            double salarioDouble = Double.parseDouble(funcionario.salario.toString());
+            System.out.format(leftAlignFormat, funcionario.nome,
+                    funcionario.dataNascimento.format(formatador),
+                    moeda.format(salarioDouble),
+                    funcionario.funcao);
+        }
+
+        System.out.format("+-----------------+--------------------+---------------+-----------------+%n");
+        System.out.println(" ");
+    }
+    public void adicionarAumentoParaTodos(double porcentagem){
+        for(Funcionario funcionario : funcionarios){
+            double salarioDouble = Double.parseDouble(funcionario.salario.toString());
+            double salarioComAumento = salarioDouble + (salarioDouble * porcentagem);
+            funcionario.salario = BigDecimal.valueOf(salarioComAumento);
+        }
+        double porcentagemFormatada = porcentagem * 100 ;
+        System.out.println(" ");
+        System.out.println("Aumento de " + porcentagemFormatada +"% em todos os salários.");
+        System.out.println(" ");
     }
     public Map agruparPorFuncao(){
+        Map<String, Funcionario> funcionariosAgrupados = new HashMap<>();
 
+
+        return funcionariosAgrupados;
     }
     public void listaDeFuncionarios_AgrupadoPorFuncao(){
 
@@ -160,7 +77,13 @@ public class Principal {
 
     }
     public void totalDeSalarios(){
+        double totalSalarios = 0;
 
+        for(Funcionario funcionario : funcionarios){
+            double salarioDouble = Double.parseDouble(funcionario.salario.toString());
+            totalSalarios += salarioDouble;
+        }
+        System.out.println("Valor total de salários: " + moeda.format(totalSalarios));
     }
     public void totalDeSalariosMinimos_CadaFuncionario(){
 
