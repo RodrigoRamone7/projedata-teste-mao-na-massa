@@ -25,6 +25,7 @@ public class Principal {
         for (Funcionario funcionario : funcionarios){
             if(Objects.equals(funcionario.nome, nome)){
                 funcionarios.remove(funcionario);
+                System.out.println("Funcionário " + nome + "Removido.");
                 break;
             }
         }
@@ -71,7 +72,7 @@ public class Principal {
 
     }
     public void listaDeFuncionarios_OrdemAlfaberica(){
-
+        List<Funcionario> funcinarios_OrdemAlfaberica = funcionarios;
     }
     public void funcionario_ComMaiorIdade(){
 

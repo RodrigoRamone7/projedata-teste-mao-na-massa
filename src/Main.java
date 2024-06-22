@@ -65,6 +65,10 @@ public class Main {
 
         principal.listaDeFuncionarios();
 
+        principal.removerFuncionarioPorNome("João");
+
+        principal.listaDeFuncionarios();
+
         principal.totalDeSalarios();
     }
 }
