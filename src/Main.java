@@ -70,5 +70,7 @@ public class Main {
         principal.listaDeFuncionarios();
 
         principal.totalDeSalarios();
+
+        principal.listaDeFuncionarios_OrdemAlfaberica();
     }
 }
