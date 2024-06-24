@@ -72,5 +72,9 @@ public class Main {
         principal.totalDeSalarios();
 
         principal.listaDeFuncionarios_OrdemAlfaberica();
+
+        principal.funcionario_ComMaiorIdade();
+
+        principal.totalDeSalariosMinimos_CadaFuncionario();
     }
 }

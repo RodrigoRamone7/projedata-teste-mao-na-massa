@@ -49,6 +49,23 @@ public class Principal {
         System.out.format("+-----------------+--------------------+---------------+-----------------+%n");
         System.out.println(" ");
     }
+    public void listaDeFuncionarios(Funcionario funcionario){
+        System.out.println(" ");
+        System.out.println("Lista de Funcionários");
+        System.out.format("+-----------------+--------------------+---------------+-----------------+%n");
+        System.out.format("| Nome            | Data de Nascimento | Salário       | Função          |%n");
+        System.out.format("+-----------------+--------------------+---------------+-----------------+%n");
+
+        String leftAlignFormat = "| %-15s | %-18s | %-13s | %-15s | %n";
+
+        System.out.format(leftAlignFormat, funcionario.getNome(),
+                funcionario.getDataNascimentoFormatado(),
+                funcionario.getSalarioFormatado(),
+                funcionario.getFuncao());
+
+        System.out.format("+-----------------+--------------------+---------------+-----------------+%n");
+        System.out.println(" ");
+    }
     public void listaDeFuncionarios(List<Funcionario> lista){
         System.out.println(" ");
         System.out.println("Lista de Funcionários");
@@ -97,11 +114,13 @@ public class Principal {
         List<Funcionario> funcinarios_OrdemAlfaberica = funcionarios;
         funcinarios_OrdemAlfaberica.sort(Comparator.comparing(Funcionario::getNome));
         System.out.println("Lista ordenada por Ordem alfabética");
-        this.listaDeFuncionarios(funcinarios_OrdemAlfaberica);
+        listaDeFuncionarios(funcinarios_OrdemAlfaberica);
 
     }
     public void funcionario_ComMaiorIdade(){
-
+        Funcionario funcionarioComMaiorIdade = funcionarios.stream().max(Comparator.comparing(Funcionario::getIdade)).get();
+        System.out.println("Funcionario com maior idade.");
+        listaDeFuncionarios(funcionarioComMaiorIdade);
     }
     public void totalDeSalarios(){
         double totalSalarios = 0;
@@ -114,6 +133,25 @@ public class Principal {
         System.out.println(" ");
     }
     public void totalDeSalariosMinimos_CadaFuncionario(){
+        System.out.println(" ");
+        System.out.println("Quantidade de salarios mínimos");
+        System.out.format("+-----------------+---------------+------------------+%n");
+        System.out.format("| Nome            | Salário       | Salários Mínimos |%n");
+        System.out.format("+-----------------+---------------+------------------+%n");
 
+        String leftAlignFormat = "| %-15s | %-13s | %-16s | %n";
+
+        for(Funcionario funcionario : funcionarios){
+            BigDecimal salario = funcionario.getSalario();
+            BigDecimal salarioMinimo = BigDecimal.valueOf(1212.00);
+            int quantidadeDeSalariosMinimos = Integer.parseInt(salario.toBigInteger().toString()) / Integer.parseInt(salarioMinimo.toBigInteger().toString());
+
+            System.out.format(leftAlignFormat, funcionario.getNome(),
+                    funcionario.getSalarioFormatado(),
+                    quantidadeDeSalariosMinimos);
+        }
+
+        System.out.format("+-----------------+---------------+------------------+%n");
+        System.out.println(" ");
     }
 }
