@@ -100,14 +100,13 @@ public class Principal {
     }
 
     public Map agruparPorFuncao(){
+        // Não consegui resolver este desafio
         Map<String, Funcionario> funcionariosAgrupados = new HashMap<>();
-
-
 
         return funcionariosAgrupados;
     }
     public void listaDeFuncionarios_AgrupadoPorFuncao(){
-
+        // Acredito que este depende da função acima, portanto não consegui resolver também
     }
 
     public void listaDeFuncionarios_OrdemAlfaberica(){
